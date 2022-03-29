@@ -1,8 +1,9 @@
 {
   "name": "easy-scroll-box",
-  "description": "方便判断是否滚动到临界点",
-  "version": "0.0.1",
+  "description": "方便判断是否滚动到顶部或底部的小工具",
+  "version": "0.0.2",
   "main": "lib/index.js",
+  "module": "lib/index.esm.js",
   "typings": "lib/index.d.ts",
   "scripts": {
     "build": "rollup -c ./rollup.config.js"

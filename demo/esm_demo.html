@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>es module Demo</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            border: none;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        #box {
+            width: calc(100% - 44px);
+            height: calc(100% - 166px);
+            border: 2px solid blue;
+            overflow-y: scroll;
+            padding: 20px;
+        }
+
+        .item {
+            border: 1px solid red;
+            height: 500px;
+        }
+
+        header,
+        h1 {
+            background-color: black;
+            color: white;
+            padding: 0;
+            border: none;
+            margin: 0;
+            text-align: center;
+            height: 80px;
+            line-height: 80px;
+        }
+
+        footer {
+            background-color: tomato;
+            color: yellow;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+        }
+
+        .visible {
+            background-color: aquamarine;
+        }
+
+        a {
+            cursor: pointer;
+            color: blue;
+        }
+    </style>
+
+    <script type="module" src="./esm_demo.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1><a id="back">go back to iife</a></h1>
+    </header>
+    <main id="box">
+        <div class="item">top</div>
+        <div class="item">2</div>
+        <div class="item">4</div>
+        <div class="item">6</div>
+        <div class="item">8</div>
+        <div class="item">bottom</div>
+    </main>
+    <footer>
+        footer
+    </footer>
+    <script>
+        const backBtn = document.querySelector('#back')
+        backBtn.addEventListener('click', () => {
+            history.go(-1)
+        }, false)
+        const intersectionObserver = new IntersectionObserver(function (entries) {
+            // If intersectionRatio is 0, the target is out of view
+            // and we do not need to do anything.
+            entries.forEach(v => {
+                if (v.intersectionRatio <= 0) {
+                    console.log('out', v.target.innerText);
+                    v.target.classList.remove('visible')
+                } else {
+                    console.log('in', v.target.innerText);
+                    v.target.classList.add('visible')
+                }
+            })
+
+        });
+        // start observing
+        document.querySelectorAll('.item').forEach(ele => {
+            intersectionObserver.observe(ele);
+        })
+    </script>
+</body>
+
+</html>

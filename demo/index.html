@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Demo</title>
     <style>
         html,
         body {
@@ -58,12 +58,12 @@
         }
     </style>
 
-    <script src="./lib/index.js"></script>
+    <script src="./lib/index.min.js"></script>
 </head>
 
 <body>
     <header>
-        <h1>Header</h1>
+        <h1><a href="./esm_demo.html">es module demo</a></h1>
     </header>
     <main id="box">
         <div class="item">top</div>
@@ -95,7 +95,9 @@
         document.querySelectorAll('.item').forEach(ele => {
             intersectionObserver.observe(ele);
         })
-        var scroller = new EasyScrollBox("#box", {
+
+        new EasyScrollBox({
+            ele: "#box",
             throttleTime: 0,
             onScroll() {
                 console.log('可见的item有：', document.querySelectorAll('.visible').length, '个');
@@ -108,9 +110,6 @@
             }
         })
 
-        setTimeout(() => {
-            scroller.removeEventListener()
-        }, 3000);
     </script>
 </body>
 

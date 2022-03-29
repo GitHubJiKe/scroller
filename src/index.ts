@@ -5,25 +5,27 @@ export type Options = {
     onScrollBottom?: (e: Event) => void;
     onScrollTop?: (e: Event) => void;
     onScroll?: (e: Event) => void;
+    ele?: Element | string;
 }
 
 export default class EasyScrollBox {
     #ele: Element;
     #options: Options = { throttleTime: 500 };
     #func: ReturnType<typeof throttle> | undefined;
-    constructor(ele: Element | string, options?: Options) {
-        if (!ele) {
+
+    constructor(options: Options) {
+        if (!options.ele) {
             this.#ele = window.document.body
         } else {
-            if (typeof ele === 'string') {
-                const _ele = window.document.querySelector(ele);
+            if (typeof options.ele === 'string') {
+                const _ele = window.document.querySelector(options.ele);
                 if (_ele) {
                     this.#ele = _ele
                 } else {
                     throw new Error('not found target element in document,plaease check your ele param')
                 }
             } else {
-                this.#ele = ele;
+                this.#ele = options.ele;
             }
         }
 
